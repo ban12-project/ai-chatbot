@@ -31,7 +31,31 @@ export const models: Array<Model> = [
     label: 'Grok Vision beta',
     apiIdentifier: 'grok-vision-beta',
     description: 'Our latest image understanding model that can process a wide variety of visual information, including documents, diagrams, charts, screenshots, and photographs.',
-  }
+  },
+  {
+    id: 'gemini-1.5-pro-latest',
+    label: 'Gemini 1.5 Pro latest',
+    apiIdentifier: 'gemini-1.5-pro-latest',
+    description: 'Complex reasoning tasks requiring more intelligence',
+  },
+  {
+    id: 'gemini-1.5-pro',
+    label: 'Gemini 1.5 Pro',
+    apiIdentifier: 'gemini-1.5-pro',
+    description: 'Complex reasoning tasks requiring more intelligence',
+  },
+  {
+    id: 'gemini-1.5-flash-latest',
+    label: 'Gemini 1.5 Flash latest',
+    apiIdentifier: 'gemini-1.5-flash-latest',
+    description: 'Fast and versatile performance across a diverse variety of tasks',
+  },
+  {
+    id: 'gemini-1.5-flash',
+    label: 'Gemini 1.5 Flash',
+    apiIdentifier: 'gemini-1.5-flash',
+    description: 'Fast and versatile performance across a diverse variety of tasks',
+  },
 ] as const;
 
 export const DEFAULT_MODEL_NAME: string = 'grok-beta';

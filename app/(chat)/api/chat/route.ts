@@ -326,6 +326,7 @@ export async function POST(request: Request) {
         },
       },
     },
+    // @ts-ignore
     onFinish: async ({ responseMessages }) => {
       if (session.user?.id) {
         try {

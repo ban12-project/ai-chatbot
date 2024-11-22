@@ -145,7 +145,8 @@ export function MultimodalInput({
 
   const uploadFile = async (file: File) => {
     const formData = new FormData();
-    formData.append('file', file);
+    const contentType = file.type;
+    formData.append('contentType', contentType);
 
     try {
       const response = await fetch('/api/files/upload', {
@@ -153,18 +154,34 @@ export function MultimodalInput({
         body: formData,
       });
 
-      if (response.ok) {
-        const data = await response.json();
-        const { url, pathname, contentType } = data;
-
-        return {
-          url,
-          name: pathname,
-          contentType: contentType,
-        };
+      if (!response.ok) {
+        const { error } = await response.json();
+        toast.error(error);
+        return;
       }
-      const { error } = await response.json();
-      toast.error(error);
+
+      const data = await response.json();
+      const { url, domain } = data;
+
+      const uploadResponse = await fetch(url, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': contentType,
+        },
+        body: file,
+      });
+  
+      if (!uploadResponse.ok) {
+        const { error } = await response.json();
+        toast.error(error);
+        return;
+      }
+
+      return {
+        url: new URL(new URL(url).pathname, domain).href,
+        name: file.name,
+        contentType,
+      };
     } catch (error) {
       toast.error('Failed to upload file, please try again!');
     }

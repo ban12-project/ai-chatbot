@@ -1,4 +1,5 @@
-import { put } from '@vercel/blob';
+import { PutObjectCommand, S3Client } from '@aws-sdk/client-s3';
+import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
 import { NextResponse } from 'next/server';
 import { z } from 'zod';
 
@@ -30,35 +31,33 @@ export async function POST(request: Request) {
 
   try {
     const formData = await request.formData();
-    const file = formData.get('file') as Blob;
+    const contentType = formData.get('contentType') as string;
 
-    if (!file) {
-      return NextResponse.json({ error: 'No file uploaded' }, { status: 400 });
+    if (!contentType) {
+      return NextResponse.json({ error: 'No file contentType' }, { status: 400 });
     }
 
-    const validatedFile = FileSchema.safeParse({ file });
+    const client = new S3Client({
+      region: process.env.S3_BUCKET_REGION,
+      endpoint: process.env.S3_BUCKET_ENDPOINT,
+      credentials: {
+        accessKeyId: process.env.S3_BUCKET_ACCESS_KEY_ID!,
+        secretAccessKey: process.env.S3_BUCKET_SECRET_ACCESS_KEY!,
+      },
+    })
 
-    if (!validatedFile.success) {
-      const errorMessage = validatedFile.error.errors
-        .map((error) => error.message)
-        .join(', ');
+    const url = await getSignedUrl(
+      client,
+      new PutObjectCommand({
+        Bucket: process.env.S3_BUCKET_NAME!,
+        Key: 'chat/' + globalThis.crypto.randomUUID(),
+        ACL: 'public-read',
+        ContentType: contentType,
+      }),
+      { expiresIn: 600 },
+    )
 
-      return NextResponse.json({ error: errorMessage }, { status: 400 });
-    }
-
-    // Get filename from formData since Blob doesn't have name property
-    const filename = (formData.get('file') as File).name;
-    const fileBuffer = await file.arrayBuffer();
-
-    try {
-      const data = await put(`${filename}`, fileBuffer, {
-        access: 'public',
-      });
-
-      return NextResponse.json(data);
-    } catch (error) {
-      return NextResponse.json({ error: 'Upload failed' }, { status: 500 });
-    }
+    return NextResponse.json({ url, domain: process.env.S3_DOMAIN })
   } catch (error) {
     return NextResponse.json(
       { error: 'Failed to process request' },

@@ -15,6 +15,7 @@ import {
   useEffect,
   useRef,
   useState,
+  type JSX,
 } from 'react';
 import { useOnClickOutside } from 'usehooks-ts';
 import { nanoid } from 'nanoid';
@@ -117,7 +118,7 @@ const Tool = ({
           onHoverEnd={() => {
             if (selectedTool !== type) setIsHovered(false);
           }}
-          onKeyDown={(event) => {
+          onKeyDown={(event: KeyboardEvent) => {
             if (event.key === 'Enter') {
               handleSelect();
             }
@@ -345,12 +346,12 @@ const PureToolbar = ({
   setMessages: Dispatch<SetStateAction<Message[]>>;
 }) => {
   const toolbarRef = useRef<HTMLDivElement>(null);
-  const timeoutRef = useRef<ReturnType<typeof setTimeout>>();
+  const timeoutRef = useRef<ReturnType<typeof setTimeout>>(undefined);
 
   const [selectedTool, setSelectedTool] = useState<string | null>(null);
   const [isAnimating, setIsAnimating] = useState(false);
 
-  useOnClickOutside(toolbarRef, () => {
+  useOnClickOutside(toolbarRef as any, () => {
     setIsToolbarVisible(false);
     setSelectedTool(null);
   });

@@ -33,6 +33,12 @@ export const models: Array<Model> = [
     description: 'Our latest image understanding model that can process a wide variety of visual information, including documents, diagrams, charts, screenshots, and photographs.',
   },
   {
+    id: 'gemini-2.0-flash-exp',
+    label: 'Gemini 2.0 Flash exp',
+    apiIdentifier: 'gemini-2.0-flash-exp',
+    description: 'Next generation features, speed, and multimodal generation for a diverse variety of tasks',
+  },
+  {
     id: 'gemini-1.5-pro-latest',
     label: 'Gemini 1.5 Pro latest',
     apiIdentifier: 'gemini-1.5-pro-latest',

@@ -132,7 +132,7 @@ const PureHitboxLayer = ({
   result,
   setBlock,
 }: {
-  hitboxRef: React.RefObject<HTMLDivElement>;
+  hitboxRef: React.RefObject<HTMLDivElement | null>;
   result: any;
   setBlock: (updaterFn: UIBlock | ((currentBlock: UIBlock) => UIBlock)) => void;
 }) => {

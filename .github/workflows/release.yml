@@ -1,6 +1,11 @@
-name: Lint
+name: Release
+
 on:
   push:
+    branches:
+      - main
+    paths:
+      - ".github/workflows/release.yml"
 
 jobs:
   build:
@@ -38,5 +43,19 @@ jobs:
       - name: Install dependencies
         run: pnpm install
 
-      - name: Run lint
-        run: pnpm lint
+      - name: Create .vercel/project.json
+        run: |
+          mkdir -p .vercel
+          echo '${{ vars.VERCEL_PROJECT }}' > .vercel/project.json
+
+      - name: Install Vercel CLI
+        run: pnpm add --global vercel@latest
+
+      - name: Get environment variables from vercel
+        run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
+
+      - name: Build
+        run: vercel build --prod --token=${{ secrets.VERCEL_TOKEN }}
+
+      - name: Deploy
+        run: vercel deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }}

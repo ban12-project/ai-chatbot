@@ -41,7 +41,9 @@ export async function POST(request: Request) {
       region: process.env.S3_BUCKET_REGION,
       endpoint: process.env.S3_BUCKET_ENDPOINT,
       credentials: {
+        // biome-ignore lint: Forbidden non-null assertion.
         accessKeyId: process.env.S3_BUCKET_ACCESS_KEY_ID!,
+        // biome-ignore lint: Forbidden non-null assertion.
         secretAccessKey: process.env.S3_BUCKET_SECRET_ACCESS_KEY!,
       },
     })
@@ -49,6 +51,7 @@ export async function POST(request: Request) {
     const url = await getSignedUrl(
       client,
       new PutObjectCommand({
+        // biome-ignore lint: Forbidden non-null assertion.
         Bucket: process.env.S3_BUCKET_NAME!,
         Key: 'chat/' + globalThis.crypto.randomUUID(),
         ACL: 'public-read',

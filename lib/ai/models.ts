@@ -19,7 +19,7 @@ export const models: Array<Model> = [
     label: 'GPT 4o',
     apiIdentifier: 'gpt-4o',
     description: 'For complex, multi-step tasks',
-  }, */
+  },
   {
     id: 'grok-beta',
     label: 'Grok beta',
@@ -31,7 +31,7 @@ export const models: Array<Model> = [
     label: 'Grok Vision beta',
     apiIdentifier: 'grok-vision-beta',
     description: 'Our latest image understanding model that can process a wide variety of visual information, including documents, diagrams, charts, screenshots, and photographs.',
-  },
+  }, */
   {
     id: 'gemini-2.0-flash-exp',
     label: 'Gemini 2.0 Flash exp',
@@ -64,4 +64,4 @@ export const models: Array<Model> = [
   },
 ] as const;
 
-export const DEFAULT_MODEL_NAME: string = 'grok-beta';
+export const DEFAULT_MODEL_NAME: string = 'gemini-1.5-flash';

@@ -1,4 +1,4 @@
-import { openai } from '@ai-sdk/openai';
+import { openai, createOpenAI } from '@ai-sdk/openai';
 import { xai } from '@ai-sdk/xai';
 import { google } from '@ai-sdk/google';
 import { experimental_wrapLanguageModel as wrapLanguageModel } from 'ai';
@@ -12,6 +12,11 @@ export const customModel = (apiIdentifier: string) => {
     ? xai(apiIdentifier)
     : apiIdentifier.startsWith('gemini')
     ? google(apiIdentifier)
+    : apiIdentifier.startsWith('deepseek')
+    ? createOpenAI({
+        baseURL: 'https://api.deepseek.com/v1',
+        apiKey: process.env.DEEP_SEEK_API_KEY
+      })(apiIdentifier)
     : null;
 
   if (!model) throw new Error(`Unknown model: ${apiIdentifier}`);

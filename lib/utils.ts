@@ -127,9 +127,11 @@ export function convertToUIMessages(
       role: message.role as Message['role'],
       content: textContent,
       toolInvocations,
-      ...(attachments.length ? {
-        experimental_attachments: attachments,
-      } : {}),
+      ...(attachments.length
+        ? {
+            experimental_attachments: attachments,
+          }
+        : {}),
     });
 
     return chatMessages;

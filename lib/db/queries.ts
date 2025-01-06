@@ -18,7 +18,7 @@ import {
   subscription,
   type Subscription,
 } from './schema';
-import { BlockKind } from '@/components/block';
+import type { BlockKind } from '@/components/block';
 
 // Optionally, if not using email/pass login, you can
 // use the Drizzle adapter for Auth.js / NextAuth
@@ -331,28 +331,40 @@ export async function updateChatVisiblityById({
   }
 }
 
-export async function saveSubscription({ userId, sub }: Omit<Subscription, 'createdAt'>) {
+export async function saveSubscription({
+  userId,
+  sub,
+}: Omit<Subscription, 'createdAt'>) {
   try {
-    return await db.insert(subscription).values({ createdAt: new Date(), userId, sub })
+    return await db
+      .insert(subscription)
+      .values({ createdAt: new Date(), userId, sub });
   } catch (error) {
     console.error('Failed to save subscription in database');
     throw error;
   }
 }
 
-export async function getSubscriptionByUserId({ userId }: Pick<Subscription, 'userId'>) {
+export async function getSubscriptionByUserId({
+  userId,
+}: Pick<Subscription, 'userId'>) {
   try {
-    const [sub] = await db.select({ subscription: subscription.sub }).from(subscription).where(eq(subscription.userId, userId))
-    return sub
+    const [sub] = await db
+      .select({ subscription: subscription.sub })
+      .from(subscription)
+      .where(eq(subscription.userId, userId));
+    return sub;
   } catch (error) {
     console.error('Failed to get subscription by userId from database');
     throw error;
   }
 }
 
-export async function deleteSubscription({ userId }: Pick<Subscription, 'userId'>) {
+export async function deleteSubscription({
+  userId,
+}: Pick<Subscription, 'userId'>) {
   try {
-    return await db.delete(subscription).where(eq(subscription.userId, userId))
+    return await db.delete(subscription).where(eq(subscription.userId, userId));
   } catch (error) {
     console.error('Failed to delete subscription by userId from database');
     throw error;

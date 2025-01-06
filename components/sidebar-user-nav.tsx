@@ -46,7 +46,7 @@ export function SidebarUserNav({ user }: { user: User }) {
             className="w-[--radix-popper-anchor-width]"
           >
             <DropdownMenuLabel>Push Notifications</DropdownMenuLabel>
-            <DropdownMenuItem onSelect={(event) => event.preventDefault() }>
+            <DropdownMenuItem onSelect={(event) => event.preventDefault()}>
               <PushNotificationManager />
             </DropdownMenuItem>
             <DropdownMenuSeparator />

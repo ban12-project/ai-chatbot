@@ -34,7 +34,10 @@ export async function POST(request: Request) {
     const contentType = formData.get('contentType') as string;
 
     if (!contentType) {
-      return NextResponse.json({ error: 'No file contentType' }, { status: 400 });
+      return NextResponse.json(
+        { error: 'No file contentType' },
+        { status: 400 },
+      );
     }
 
     const client = new S3Client({
@@ -46,21 +49,21 @@ export async function POST(request: Request) {
         // biome-ignore lint: Forbidden non-null assertion.
         secretAccessKey: process.env.S3_BUCKET_SECRET_ACCESS_KEY!,
       },
-    })
+    });
 
     const url = await getSignedUrl(
       client,
       new PutObjectCommand({
         // biome-ignore lint: Forbidden non-null assertion.
         Bucket: process.env.S3_BUCKET_NAME!,
-        Key: 'chat/' + globalThis.crypto.randomUUID(),
+        Key: `chat/${globalThis.crypto.randomUUID()}`,
         ACL: 'public-read',
         ContentType: contentType,
       }),
       { expiresIn: 600 },
-    )
+    );
 
-    return NextResponse.json({ url, domain: process.env.S3_DOMAIN })
+    return NextResponse.json({ url, domain: process.env.S3_DOMAIN });
   } catch (error) {
     return NextResponse.json(
       { error: 'Failed to process request' },

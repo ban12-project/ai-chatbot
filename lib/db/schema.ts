@@ -1,4 +1,5 @@
 import type { InferSelectModel } from 'drizzle-orm';
+import type { PushSubscription } from 'web-push'
 import {
   pgTable,
   varchar,
@@ -9,6 +10,7 @@ import {
   primaryKey,
   foreignKey,
   boolean,
+  jsonb,
 } from 'drizzle-orm/pg-core';
 
 export const user = pgTable('User', {
@@ -113,3 +115,17 @@ export const suggestion = pgTable(
 );
 
 export type Suggestion = InferSelectModel<typeof suggestion>;
+
+export const subscription = pgTable(
+  'Subscription',
+  {
+    createdAt: timestamp('createdAt').notNull(),
+    userId: uuid('userId').notNull().references(() => user.id),
+    sub: jsonb('sub').notNull().$type<PushSubscription>(),
+  },
+  (table) => [
+    primaryKey({ columns: [table.userId] })
+  ]
+)
+
+export type Subscription = InferSelectModel<typeof subscription>

@@ -9,6 +9,27 @@ export const metadata: Metadata = {
   metadataBase: new URL('https://chat.vercel.ai'),
   title: 'Next.js Chatbot Template',
   description: 'Next.js chatbot template using the AI SDK.',
+  icons: {
+    icon: {
+      url: 'https://ban12.com/api/og?w=48&h=48&bg=transparent',
+      type: 'image/png',
+    },
+    shortcut: {
+      url: 'https://ban12.com/api/og?w=192&h=192&bg=transparent',
+      type: 'image/png',
+    },
+    apple: [
+      {
+        url: 'https://ban12.com/api/og?w=120&h=120&size-fit=cover',
+        type: 'image/png',
+      },
+      {
+        url: 'https://ban12.com/api/og?w=180&h=180&size-fit=cover',
+        sizes: '180x180',
+        type: 'image/png',
+      }
+    ]
+  },
 };
 
 export const viewport = {

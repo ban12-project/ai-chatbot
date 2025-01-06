@@ -2,15 +2,20 @@
 
 import { type CoreUserMessage, generateText } from "ai";
 import { cookies } from "next/headers";
+import webpush, { type PushSubscription } from 'web-push'
 
 import { customModel } from "@/lib/ai";
 import {
   deleteMessagesByChatIdAfterTimestamp,
+  deleteSubscription,
   getMessageById,
+  getSubscriptionByUserId,
+  saveSubscription,
   updateChatVisiblityById,
 } from "@/lib/db/queries";
 import { VisibilityType } from "@/components/visibility-selector";
 import { DEFAULT_MODEL_NAME } from "@/lib/ai/models";
+import { auth } from "../(auth)/auth";
 
 export async function saveModelId(model: string) {
   const cookieStore = await cookies();
@@ -52,4 +57,65 @@ export async function updateChatVisibility({
   visibility: VisibilityType;
 }) {
   await updateChatVisiblityById({ chatId, visibility });
+}
+ 
+webpush.setVapidDetails(
+  'mailto:coda@ban12.com',
+  process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY!,
+  process.env.VAPID_PRIVATE_KEY!
+)
+ 
+export async function subscribeUser(sub: PushSubscription) {
+  const session = await auth()
+  if (!session) {
+    return new Response('Unauthorized', { status: 401 });
+  }
+  
+  const userId = session.user?.id
+  if (!userId) {
+    return new Response('Unauthorized', { status: 401 });
+  }
+  await saveSubscription({ sub, userId })
+}
+ 
+export async function unsubscribeUser() {
+  const session = await auth()
+  if (!session) {
+    return new Response('Unauthorized', { status: 401 });
+  }
+  
+  const userId = session.user?.id
+  if (!userId) {
+    return new Response('Unauthorized', { status: 401 });
+  }
+
+  await deleteSubscription({ userId })
+}
+ 
+export async function sendNotification({userId, title, message}: {userId?: string, title: string, message: string}) {
+  if (!userId) userId = await auth().then(session => session?.user?.id)
+
+  if (!userId) {
+    return new Response('Bad Request', { status: 400 })
+  }
+  
+  const { subscription } = await getSubscriptionByUserId({ userId })
+
+  if (!subscription) {
+    return new Response('No subscription available', { status: 400 })
+  }
+ 
+  try {
+    await webpush.sendNotification(
+      subscription,
+      JSON.stringify({
+        title,
+        body: message,
+      })
+    )
+    return { success: true }
+  } catch (error) {
+    console.error('Error sending push notification:', error)
+    return { success: false, error: 'Failed to send notification' }
+  }
 }

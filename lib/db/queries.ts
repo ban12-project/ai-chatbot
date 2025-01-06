@@ -15,6 +15,8 @@ import {
   type Message,
   message,
   vote,
+  subscription,
+  type Subscription,
 } from './schema';
 import { BlockKind } from '@/components/block';
 
@@ -325,6 +327,34 @@ export async function updateChatVisiblityById({
     return await db.update(chat).set({ visibility }).where(eq(chat.id, chatId));
   } catch (error) {
     console.error('Failed to update chat visibility in database');
+    throw error;
+  }
+}
+
+export async function saveSubscription({ userId, sub }: Omit<Subscription, 'createdAt'>) {
+  try {
+    return await db.insert(subscription).values({ createdAt: new Date(), userId, sub })
+  } catch (error) {
+    console.error('Failed to save subscription in database');
+    throw error;
+  }
+}
+
+export async function getSubscriptionByUserId({ userId }: Pick<Subscription, 'userId'>) {
+  try {
+    const [sub] = await db.select({ subscription: subscription.sub }).from(subscription).where(eq(subscription.userId, userId))
+    return sub
+  } catch (error) {
+    console.error('Failed to get subscription by userId from database');
+    throw error;
+  }
+}
+
+export async function deleteSubscription({ userId }: Pick<Subscription, 'userId'>) {
+  try {
+    return await db.delete(subscription).where(eq(subscription.userId, userId))
+  } catch (error) {
+    console.error('Failed to delete subscription by userId from database');
     throw error;
   }
 }

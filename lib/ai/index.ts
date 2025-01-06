@@ -10,12 +10,12 @@ export const customModel = (apiIdentifier: string) => {
   const model = apiIdentifier.startsWith('gpt')
     ? openai(apiIdentifier)
     : apiIdentifier.startsWith('grok')
-    ? xai(apiIdentifier)
-    : apiIdentifier.startsWith('gemini')
-    ? google(apiIdentifier)
-    : apiIdentifier.startsWith('deepseek')
-    ? deepseek(apiIdentifier)
-    : null;
+      ? xai(apiIdentifier)
+      : apiIdentifier.startsWith('gemini')
+        ? google(apiIdentifier)
+        : apiIdentifier.startsWith('deepseek')
+          ? deepseek(apiIdentifier)
+          : null;
 
   if (!model) throw new Error(`Unknown model: ${apiIdentifier}`);
 

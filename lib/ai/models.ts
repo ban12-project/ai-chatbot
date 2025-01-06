@@ -36,7 +36,8 @@ export const models: Array<Model> = [
     id: 'gemini-2.0-flash-exp',
     label: 'Gemini 2.0 Flash exp',
     apiIdentifier: 'gemini-2.0-flash-exp',
-    description: 'Next generation features, speed, and multimodal generation for a diverse variety of tasks',
+    description:
+      'Next generation features, speed, and multimodal generation for a diverse variety of tasks',
   },
   {
     id: 'gemini-1.5-pro-latest',
@@ -54,20 +55,22 @@ export const models: Array<Model> = [
     id: 'gemini-1.5-flash-latest',
     label: 'Gemini 1.5 Flash latest',
     apiIdentifier: 'gemini-1.5-flash-latest',
-    description: 'Fast and versatile performance across a diverse variety of tasks',
+    description:
+      'Fast and versatile performance across a diverse variety of tasks',
   },
   {
     id: 'gemini-1.5-flash',
     label: 'Gemini 1.5 Flash',
     apiIdentifier: 'gemini-1.5-flash',
-    description: 'Fast and versatile performance across a diverse variety of tasks',
+    description:
+      'Fast and versatile performance across a diverse variety of tasks',
   },
   {
     id: 'deepseek-chat',
     label: 'DeepSeek Chat',
     apiIdentifier: 'deepseek-chat',
-    description: 'DeepSeek-V3'
-  }
+    description: 'DeepSeek-V3',
+  },
 ] as const;
 
 export const DEFAULT_MODEL_NAME: string = 'gemini-1.5-flash';

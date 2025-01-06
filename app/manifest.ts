@@ -11,12 +11,12 @@ export default function manifest(): MetadataRoute.Manifest {
     theme_color: '#000000',
     icons: [
       {
-        src: 'https://ban12.com/api/og?w=192&h=192&bg=transparent',
+        src: 'https://ban12.com/api/og?w=192&h=192&size-fit=cover',
         sizes: '192x192',
         type: 'image/png',
       },
       {
-        src: 'https://ban12.com/api/og?w=512&h=512&bg=transparent',
+        src: 'https://ban12.com/api/og?w=512&h=512&size-fit=cover',
         sizes: '512x512',
         type: 'image/png',
       },

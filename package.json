@@ -85,6 +85,7 @@
     "zod": "^3.24.1"
   },
   "devDependencies": {
+    "@ban12/tailwindcss-safe-area": "^0.2.4",
     "@biomejs/biome": "1.9.4",
     "@tailwindcss/typography": "^0.5.15",
     "@types/d3-scale": "^4.0.8",

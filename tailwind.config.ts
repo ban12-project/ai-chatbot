@@ -72,6 +72,10 @@ const config: Config = {
       },
     },
   },
-  plugins: [require('tailwindcss-animate'), require('@tailwindcss/typography')],
+  plugins: [
+    require('tailwindcss-animate'),
+    require('@tailwindcss/typography'),
+    require('@ban12/tailwindcss-safe-area')
+  ],
 };
 export default config;

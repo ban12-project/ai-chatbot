@@ -2,16 +2,16 @@
 
 import {
   memo,
-  type MouseEvent,
+  MouseEvent,
   useCallback,
   useEffect,
   useMemo,
   useRef,
 } from 'react';
-import type { UIBlock } from './block';
+import { UIBlock } from './block';
 import { FileIcon, FullscreenIcon, LoaderIcon } from './icons';
 import { cn, fetcher } from '@/lib/utils';
-import type { Document } from '@/lib/db/schema';
+import { Document } from '@/lib/db/schema';
 import { InlineDocumentSkeleton } from './document-skeleton';
 import useSWR from 'swr';
 import { Editor } from './editor';
@@ -145,6 +145,7 @@ const PureHitboxLayer = ({
           ? { ...block, isVisible: true }
           : {
               ...block,
+              title: result.title,
               documentId: result.id,
               kind: result.kind,
               isVisible: true,

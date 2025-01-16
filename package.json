@@ -21,7 +21,7 @@
   "dependencies": {
     "@ai-sdk/deepseek": "^0.0.3",
     "@ai-sdk/google": "^1.0.14",
-    "@ai-sdk/openai": "1.0.16",
+    "@ai-sdk/openai": "1.0.19",
     "@ai-sdk/xai": "^1.0.16",
     "@aws-sdk/client-s3": "^3.726.0",
     "@aws-sdk/s3-request-presigner": "^3.726.0",
@@ -42,7 +42,7 @@
     "@radix-ui/react-visually-hidden": "^1.1.1",
     "@vercel/analytics": "^1.4.1",
     "@vercel/postgres": "^0.10.0",
-    "ai": "4.0.31",
+    "ai": "4.0.36",
     "bcrypt-ts": "^5.0.3",
     "class-variance-authority": "^0.7.1",
     "classnames": "^2.5.1",

@@ -42,7 +42,7 @@
     "@radix-ui/react-visually-hidden": "^1.1.1",
     "@vercel/analytics": "^1.4.1",
     "@vercel/postgres": "^0.10.0",
-    "ai": "4.0.36",
+    "ai": "4.1.1",
     "bcrypt-ts": "^5.0.3",
     "class-variance-authority": "^0.7.1",
     "classnames": "^2.5.1",

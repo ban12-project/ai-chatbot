@@ -1,6 +1,6 @@
 'use server';
 
-import { type CoreUserMessage, generateText } from 'ai';
+import { type CoreUserMessage, generateText, Message } from 'ai';
 import { cookies } from 'next/headers';
 import webpush, { type PushSubscription } from 'web-push';
 
@@ -25,7 +25,7 @@ export async function saveModelId(model: string) {
 export async function generateTitleFromUserMessage({
   message,
 }: {
-  message: CoreUserMessage;
+  message: Message;
 }) {
   const { text: title } = await generateText({
     model: customModel(DEFAULT_MODEL_NAME),

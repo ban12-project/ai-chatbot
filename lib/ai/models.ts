@@ -76,6 +76,12 @@ export const models: Array<Model> = [
     apiIdentifier: 'deepseek-chat',
     description: 'DeepSeek-V3',
   },
+  {
+    id: 'groq-deepseek-r1-distill-llama-70b',
+    label: 'DeepSeek Reasoner',
+    apiIdentifier: 'groq-deepseek-r1-distill-llama-70b',
+    description: 'deepseek-r1'
+  }
 ] as const;
 
 export const DEFAULT_MODEL_NAME: string = 'gemini-1.5-flash';

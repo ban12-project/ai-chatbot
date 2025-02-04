@@ -30,8 +30,9 @@ import { textBlock } from '@/blocks/text';
 import { imageBlock } from '@/blocks/image';
 import { codeBlock } from '@/blocks/code';
 import equal from 'fast-deep-equal';
+import { sheetBlock } from '@/blocks/sheet';
 
-export const blockDefinitions = [textBlock, codeBlock, imageBlock] as const;
+export const blockDefinitions = [textBlock, codeBlock, imageBlock, sheetBlock];
 export type BlockKind = (typeof blockDefinitions)[number]['kind'];
 
 export interface UIBlock {
@@ -249,7 +250,7 @@ function PureBlock({
   }
 
   useEffect(() => {
-    if (block && block.documentId !== 'init') {
+    if (block.documentId !== 'init') {
       if (blockDefinition.initialize) {
         blockDefinition.initialize({
           documentId: block.documentId,
@@ -257,7 +258,7 @@ function PureBlock({
         });
       }
     }
-  }, [block, blockDefinition, setMetadata]);
+  }, [block.documentId, blockDefinition, setMetadata]);
 
   return (
     <AnimatePresence>

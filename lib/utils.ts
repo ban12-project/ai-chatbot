@@ -1,10 +1,11 @@
 import type {
   Attachment,
   CoreAssistantMessage,
-  CoreMessage,
   CoreToolMessage,
   Message,
+  TextStreamPart,
   ToolInvocation,
+  ToolSet,
 } from 'ai';
 import { type ClassValue, clsx } from 'clsx';
 import { twMerge } from 'tailwind-merge';
@@ -97,6 +98,7 @@ export function convertToUIMessages(
     }
 
     let textContent = '';
+    let reasoning: string | undefined = undefined;
     const toolInvocations: Array<ToolInvocation> = [];
     const attachments: Attachment[] = [];
 
@@ -113,11 +115,8 @@ export function convertToUIMessages(
             toolName: content.toolName,
             args: content.args,
           });
-        } else if (content.type === 'image') {
-          attachments.push({
-            contentType: 'image/jpeg',
-            url: content.image,
-          });
+        } else if (content.type === 'reasoning') {
+          reasoning = content.reasoning;
         }
       }
     }
@@ -126,6 +125,7 @@ export function convertToUIMessages(
       id: message.id,
       role: message.role as Message['role'],
       content: textContent,
+      reasoning,
       toolInvocations,
       ...(attachments.length
         ? {
@@ -141,9 +141,13 @@ export function convertToUIMessages(
 type ResponseMessageWithoutId = CoreToolMessage | CoreAssistantMessage;
 type ResponseMessage = ResponseMessageWithoutId & { id: string };
 
-export function sanitizeResponseMessages(
-  messages: Array<ResponseMessage>,
-): Array<ResponseMessage> {
+export function sanitizeResponseMessages({
+  messages,
+  reasoning,
+}: {
+  messages: Array<ResponseMessage>;
+  reasoning: string | undefined;
+}) {
   const toolResultIds: Array<string> = [];
 
   for (const message of messages) {
@@ -168,6 +172,11 @@ export function sanitizeResponseMessages(
           ? content.text.length > 0
           : true,
     );
+
+    if (reasoning) {
+      // @ts-expect-error: reasoning message parts in sdk is wip
+      sanitizedContent.push({ type: 'reasoning', reasoning });
+    }
 
     return {
       ...message,

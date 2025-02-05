@@ -44,6 +44,7 @@ export function DocumentPreview({
 
   useEffect(() => {
     const boundingBox = hitboxRef.current?.getBoundingClientRect();
+
     if (block.documentId && boundingBox) {
       setBlock((block) => ({
         ...block,

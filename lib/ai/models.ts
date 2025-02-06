@@ -31,7 +31,8 @@ export const myProvider = customProvider({
     'block-model': google('gemini-2.0-flash-exp'),
   },
   imageModels: {
-    'small-model': openai.image('dall-e-3'),
+    'small-model': openai.image('dall-e-2'),
+    'large-model': openai.image('dall-e-3'),
   },
 });
 

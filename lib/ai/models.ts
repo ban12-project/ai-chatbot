@@ -1,7 +1,5 @@
 import { openai } from '@ai-sdk/openai';
 import { google } from '@ai-sdk/google';
-import { deepseek } from '@ai-sdk/deepseek';
-import { groq } from '@ai-sdk/groq';
 import { fireworks } from '@ai-sdk/fireworks';
 import {
   customProvider,
@@ -18,11 +16,7 @@ export const myProvider = customProvider({
     'gemini-exp-1206': google('gemini-exp-1206'),
     'gemini-1.5-flash': google('gemini-1.5-flash'),
     'gemini-1.5-pro': google('gemini-1.5-pro'),
-    'deepseek-chat': deepseek('deepseek-chat'),
-    'deepseek-r1-distill-llama-70b': wrapLanguageModel({
-      model: groq('deepseek-r1-distill-llama-70b'),
-      middleware: extractReasoningMiddleware({ tagName: 'think' }),
-    }),
+    'deepseek-chat': fireworks('accounts/fireworks/models/deepseek-v3'),
     'deepseek-r1-fireworks': wrapLanguageModel({
       model: fireworks('accounts/fireworks/models/deepseek-r1'),
       middleware: extractReasoningMiddleware({ tagName: 'think' }),
@@ -74,11 +68,6 @@ export const chatModels: Array<ChatModel> = [
     id: 'deepseek-chat',
     name: 'DeepSeek Chat',
     description: 'DeepSeek-V3',
-  },
-  {
-    id: 'deepseek-r1-distill-llama-70b',
-    name: 'DeepSeek Reasoner',
-    description: 'DeepSeek-R1'
   },
   {
     id: 'deepseek-r1-fireworks',

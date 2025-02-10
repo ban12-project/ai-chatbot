@@ -9,12 +9,12 @@ import {
   wrapLanguageModel,
 } from 'ai';
 
-export const DEFAULT_CHAT_MODEL: string = 'chat-model-small';
+export const DEFAULT_CHAT_MODEL: string = 'gemini-2.0-flash';
 
 export const myProvider = customProvider({
   languageModels: {
     'gemini-2.0-flash-thinking-exp': google('gemini-2.0-flash-thinking-exp'),
-    'gemini-2.0-flash-exp': google('gemini-2.0-flash-exp'),
+    'gemini-2.0-flash': google('gemini-2.0-flash'),
     'gemini-exp-1206': google('gemini-exp-1206'),
     'gemini-1.5-flash': google('gemini-1.5-flash'),
     'gemini-1.5-pro': google('gemini-1.5-pro'),
@@ -27,8 +27,8 @@ export const myProvider = customProvider({
       model: fireworks('accounts/fireworks/models/deepseek-r1'),
       middleware: extractReasoningMiddleware({ tagName: 'think' }),
     }),
-    'title-model': google('gemini-1.5-flash'),
-    'block-model': google('gemini-2.0-flash-exp'),
+    'title-model': google('gemini-2.0-flash'),
+    'block-model': google('gemini-2.0-flash'),
   },
   imageModels: {
     'small-model': openai.image('dall-e-2'),
@@ -49,8 +49,8 @@ export const chatModels: Array<ChatModel> = [
     description: 'Reasoning for complex problems, features a new Thinking mode',
   },
   {
-    id: 'gemini-2.0-flash-exp',
-    name: 'Gemini 2.0 Flash Exp',
+    id: 'gemini-2.0-flash',
+    name: 'Gemini 2.0 Flash',
     description:
       'Next generation features, speed, and multimodal generation for a diverse variety of tasks',
   },

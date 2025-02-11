@@ -16,7 +16,6 @@ import {
   useEffect,
   useRef,
   useState,
-  type JSX,
 } from 'react';
 import { useOnClickOutside } from 'usehooks-ts';
 import { nanoid } from 'nanoid';

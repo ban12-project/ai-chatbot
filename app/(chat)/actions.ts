@@ -1,6 +1,6 @@
 'use server';
 
-import { generateText, Message } from 'ai';
+import { type CoreUserMessage, generateText, Message } from 'ai';
 import { cookies } from 'next/headers';
 import webpush, { type PushSubscription } from 'web-push';
 
@@ -24,7 +24,7 @@ export async function saveChatModelAsCookie(model: string) {
 export async function generateTitleFromUserMessage({
   message,
 }: {
-  message: Message;
+  message: CoreUserMessage;
 }) {
   const { text: title } = await generateText({
     model: myProvider.languageModel('title-model'),

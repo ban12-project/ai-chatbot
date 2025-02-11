@@ -17,7 +17,7 @@ export const myProvider = customProvider({
     'gemini-1.5-flash': google('gemini-1.5-flash'),
     'gemini-1.5-pro': google('gemini-1.5-pro'),
     'deepseek-chat': fireworks('accounts/fireworks/models/deepseek-v3'),
-    'deepseek-r1-fireworks': wrapLanguageModel({
+    'chat-model-reasoning': wrapLanguageModel({
       model: fireworks('accounts/fireworks/models/deepseek-r1'),
       middleware: extractReasoningMiddleware({ tagName: 'think' }),
     }),
@@ -25,8 +25,8 @@ export const myProvider = customProvider({
     'block-model': google('gemini-2.0-flash'),
   },
   imageModels: {
-    'small-model': openai.image('dall-e-2'),
-    'large-model': openai.image('dall-e-3'),
+    'small-model': fireworks.image('accounts/fireworks/models/stable-diffusion-3p5-medium'),
+    'large-model': fireworks.image('accounts/fireworks/models/stable-diffusion-3p5-large-turbo'),
   },
 });
 
@@ -70,7 +70,7 @@ export const chatModels: Array<ChatModel> = [
     description: 'DeepSeek-V3',
   },
   {
-    id: 'deepseek-r1-fireworks',
+    id: 'chat-model-reasoning',
     name: 'Reasoning model',
     description: 'Uses advanced reasoning',
   }

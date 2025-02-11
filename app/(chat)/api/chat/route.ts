@@ -1,5 +1,6 @@
 import {
   type Message,
+  convertToCoreMessages,
   createDataStreamResponse,
   smoothStream,
   streamText,
@@ -42,7 +43,8 @@ export async function POST(request: Request) {
     return new Response('Unauthorized', { status: 401 });
   }
 
-  const userMessage = getMostRecentUserMessage(messages);
+  const coreMessages = convertToCoreMessages(messages);
+  const userMessage = getMostRecentUserMessage(coreMessages);
 
   if (!userMessage) {
     return new Response('No user message found', { status: 400 });
@@ -55,8 +57,9 @@ export async function POST(request: Request) {
     await saveChat({ id, userId: session.user.id, title });
   }
 
+  const userMessageId = generateUUID();
   await saveMessages({
-    messages: [{ ...userMessage, createdAt: new Date(), chatId: id }],
+    messages: [{ ...userMessage, id: userMessageId, createdAt: new Date(), chatId: id }],
   });
 
   return createDataStreamResponse({

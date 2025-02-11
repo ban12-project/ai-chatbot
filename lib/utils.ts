@@ -1,6 +1,7 @@
 import type {
   Attachment,
   CoreAssistantMessage,
+  CoreMessage,
   CoreToolMessage,
   Message,
   TextStreamPart,
@@ -117,6 +118,12 @@ export function convertToUIMessages(
           });
         } else if (content.type === 'reasoning') {
           reasoning = content.reasoning;
+        } else if (content.type === 'image') {
+          attachments.push({
+            name: content.name,
+            contentType: content.contentType || 'image/*',
+            url: content.image,
+          });
         }
       }
     }
@@ -222,7 +229,7 @@ export function sanitizeUIMessages(messages: Array<Message>): Array<Message> {
   );
 }
 
-export function getMostRecentUserMessage(messages: Array<Message>) {
+export function getMostRecentUserMessage(messages: Array<CoreMessage>) {
   const userMessages = messages.filter((message) => message.role === 'user');
   return userMessages.at(-1);
 }

@@ -12,7 +12,6 @@ import {
   boolean,
   jsonb,
 } from 'drizzle-orm/pg-core';
-import { blockKinds } from '../blocks/server';
 
 export const user = pgTable('User', {
   id: uuid('id').primaryKey().notNull().defaultRandom(),

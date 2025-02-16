@@ -22,7 +22,7 @@ export const myProvider = customProvider({
       middleware: extractReasoningMiddleware({ tagName: 'think' }),
     }),
     'title-model': google('gemini-2.0-flash'),
-    'block-model': google('gemini-2.0-flash'),
+    'artifact-model': google('gemini-2.0-flash'),
   },
   imageModels: {
     'small-model': fireworks.image('accounts/fireworks/models/stable-diffusion-3p5-medium'),

@@ -1,32 +1,4 @@
-import { google } from '@ai-sdk/google';
-import { fireworks } from '@ai-sdk/fireworks';
-import {
-  customProvider,
-  extractReasoningMiddleware,
-  wrapLanguageModel,
-} from 'ai';
-
 export const DEFAULT_CHAT_MODEL: string = 'gemini-2.0-flash';
-
-export const myProvider = customProvider({
-  languageModels: {
-    'gemini-2.0-pro-exp-02-05': google('gemini-2.0-pro-exp-02-05'),
-    'gemini-2.0-flash-thinking-exp': google('gemini-2.0-flash-thinking-exp'),
-    'gemini-2.0-flash': google('gemini-2.0-flash'),
-    'gemini-exp-1206': google('gemini-exp-1206'),
-    'deepseek-chat': fireworks('accounts/fireworks/models/deepseek-v3'),
-    'chat-model-reasoning': wrapLanguageModel({
-      model: fireworks('accounts/fireworks/models/deepseek-r1'),
-      middleware: extractReasoningMiddleware({ tagName: 'think' }),
-    }),
-    'title-model': google('gemini-2.0-flash'),
-    'artifact-model': google('gemini-2.0-flash'),
-  },
-  imageModels: {
-    'small-model': fireworks.image('accounts/fireworks/models/stable-diffusion-3p5-medium'),
-    'large-model': fireworks.image('accounts/fireworks/models/stable-diffusion-3p5-large-turbo'),
-  },
-});
 
 interface ChatModel {
   id: string;

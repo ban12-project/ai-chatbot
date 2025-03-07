@@ -13,7 +13,7 @@ import {
   updateChatVisiblityById,
 } from '@/lib/db/queries';
 import { VisibilityType } from '@/components/visibility-selector';
-import { myProvider } from '@/lib/ai/models';
+import { myProvider } from '@/lib/ai/providers';
 import { auth } from '../(auth)/auth';
 
 export async function saveChatModelAsCookie(model: string) {

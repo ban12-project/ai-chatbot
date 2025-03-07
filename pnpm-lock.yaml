@@ -9,11 +9,14 @@ importers:
   .:
     dependencies:
       '@ai-sdk/fireworks':
-        specifier: ^0.1.8
-        version: 0.1.8(zod@3.24.1)
+        specifier: 0.1.12
+        version: 0.1.12(zod@3.24.1)
       '@ai-sdk/google':
         specifier: ^1.1.14
         version: 1.1.14(zod@3.24.1)
+      '@ai-sdk/react':
+        specifier: ^1.1.20
+        version: 1.1.20(react@19.0.0)(zod@3.24.1)
       '@aws-sdk/client-s3':
         specifier: ^3.726.0
         version: 3.726.0
@@ -69,8 +72,8 @@ importers:
         specifier: ^0.10.0
         version: 0.10.0
       ai:
-        specifier: 4.1.44
-        version: 4.1.44(react@19.0.0)(zod@3.24.1)
+        specifier: 4.1.50
+        version: 4.1.50(react@19.0.0)(zod@3.24.1)
       bcrypt-ts:
         specifier: ^5.0.3
         version: 5.0.3
@@ -106,7 +109,7 @@ importers:
         version: 11.16.4(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       geist:
         specifier: ^1.3.1
-        version: 1.3.1(next@15.2.0-canary.62(@opentelemetry/api@1.9.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))
+        version: 1.3.1(next@15.2.2-canary.1(@opentelemetry/api@1.9.0)(@playwright/test@1.50.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))
       lucide-react:
         specifier: ^0.469.0
         version: 0.469.0(react@19.0.0)
@@ -114,11 +117,11 @@ importers:
         specifier: ^5.0.9
         version: 5.0.9
       next:
-        specifier: 15.2.0-canary.62
-        version: 15.2.0-canary.62(@opentelemetry/api@1.9.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+        specifier: 15.2.2-canary.1
+        version: 15.2.2-canary.1(@opentelemetry/api@1.9.0)(@playwright/test@1.50.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       next-auth:
         specifier: 5.0.0-beta.25
-        version: 5.0.0-beta.25(next@15.2.0-canary.62(@opentelemetry/api@1.9.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react@19.0.0)
+        version: 5.0.0-beta.25(next@15.2.2-canary.1(@opentelemetry/api@1.9.0)(@playwright/test@1.50.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react@19.0.0)
       next-themes:
         specifier: ^0.4.4
         version: 0.4.4(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
@@ -204,6 +207,9 @@ importers:
       '@biomejs/biome':
         specifier: 1.9.4
         version: 1.9.4
+      '@playwright/test':
+        specifier: ^1.50.1
+        version: 1.50.1
       '@tailwindcss/typography':
         specifier: ^0.5.16
         version: 0.5.16(tailwindcss@3.4.17)
@@ -261,8 +267,8 @@ importers:
 
 packages:
 
-  '@ai-sdk/fireworks@0.1.8':
-    resolution: {integrity: sha512-3/xrROoWl3K6YA9VMej4p1M2eMS54xz7Z0x7QC7+q9ULLNhiZOpkbHVxDjsBayOlwiXH1MyZlKyDd4jJsgDzgg==}
+  '@ai-sdk/fireworks@0.1.12':
+    resolution: {integrity: sha512-13HGPMRDUvdS7d53stNiVMyQa2S0PiefymYjIaXwz8KhA3ZEfxTyzw+42OL84FdEuPGFMadKkXOdvWSW0YVUDg==}
     engines: {node: '>=18'}
     peerDependencies:
       zod: ^3.0.0
@@ -273,14 +279,14 @@ packages:
     peerDependencies:
       zod: ^3.0.0
 
-  '@ai-sdk/openai-compatible@0.1.8':
-    resolution: {integrity: sha512-o2WeZmkOgaaEHAIZfAdlAASotNemhWBzupUp7ql/vBKIrPDctbQS4K7XOvG7EZ1dshn0TxB+Ur7Q8HoWSeWPmA==}
+  '@ai-sdk/openai-compatible@0.1.12':
+    resolution: {integrity: sha512-2bMhAEeiRz4lbW5ixjGjbPhwyqjtujkjLVpqqtqWvvUDvtUM3cw1go9pqWFgaNKSBDaXRUfi8mkAVrn1yRuY2A==}
     engines: {node: '>=18'}
     peerDependencies:
       zod: ^3.0.0
 
-  '@ai-sdk/provider-utils@2.1.6':
-    resolution: {integrity: sha512-Pfyaj0QZS22qyVn5Iz7IXcJ8nKIKlu2MeSAdKJzTwkAks7zdLaKVB+396Rqcp1bfQnxl7vaduQVMQiXUrgK8Gw==}
+  '@ai-sdk/provider-utils@2.1.10':
+    resolution: {integrity: sha512-4GZ8GHjOFxePFzkl3q42AU0DQOtTQ5w09vmaWUf/pKFXJPizlnzKSUkF0f+VkapIUfDugyMqPMT1ge8XQzVI7Q==}
     engines: {node: '>=18'}
     peerDependencies:
       zod: ^3.0.0
@@ -297,25 +303,16 @@ packages:
       zod:
         optional: true
 
-  '@ai-sdk/provider-utils@2.1.9':
-    resolution: {integrity: sha512-NerKjTuuUUs6glJGaentaXEBH52jRM0pR+cRCzc7aWke/K5jYBD6Frv1JYBpcxS7gnnCqSQZR9woiyS+6jrdjw==}
-    engines: {node: '>=18'}
-    peerDependencies:
-      zod: ^3.0.0
-    peerDependenciesMeta:
-      zod:
-        optional: true
-
   '@ai-sdk/provider@1.0.7':
     resolution: {integrity: sha512-q1PJEZ0qD9rVR+8JFEd01/QM++csMT5UVwYXSN2u54BrVw/D8TZLTeg2FEfKK00DgAx0UtWd8XOhhwITP9BT5g==}
     engines: {node: '>=18'}
 
-  '@ai-sdk/provider@1.0.8':
-    resolution: {integrity: sha512-f9jSYwKMdXvm44Dmab1vUBnfCDSFfI5rOtvV1W9oKB7WYHR5dGvCC6x68Mk3NUfrdmNoMVHGoh6JT9HCVMlMow==}
+  '@ai-sdk/provider@1.0.9':
+    resolution: {integrity: sha512-jie6ZJT2ZR0uVOVCDc9R2xCX5I/Dum/wEK28lx21PJx6ZnFAN9EzD2WsPhcDWfCgGx3OAZZ0GyM3CEobXpa9LA==}
     engines: {node: '>=18'}
 
-  '@ai-sdk/react@1.1.17':
-    resolution: {integrity: sha512-NAuEflFvjw1uh1AOmpyi7rBF4xasWsiWUb86JQ8ScjDGxoGDYEdBnaHOxUpooLna0dGNbSPkvDMnVRhoLKoxPQ==}
+  '@ai-sdk/react@1.1.20':
+    resolution: {integrity: sha512-4QOM9fR9SryaRraybckDjrhl1O6XejqELdKmrM5g9y9eLnWAfjwF+W1aN0knkSHzbbjMqN77sy9B9yL8EuJbDw==}
     engines: {node: '>=18'}
     peerDependencies:
       react: ^18 || ^19 || ^19.0.0-rc
@@ -326,8 +323,8 @@ packages:
       zod:
         optional: true
 
-  '@ai-sdk/ui-utils@1.1.15':
-    resolution: {integrity: sha512-NsV/3CMmjc4m53snzRdtZM6teTQUXIKi8u0Kf7GBruSzaMSuZ4DWaAAlUshhR3p2FpZgtsogW+vYG1/rXsGu+Q==}
+  '@ai-sdk/ui-utils@1.1.16':
+    resolution: {integrity: sha512-jfblR2yZVISmNK2zyNzJZFtkgX57WDAUQXcmn3XUBJyo8LFsADu+/vYMn5AOyBi9qJT0RBk11PEtIxIqvByw3Q==}
     engines: {node: '>=18'}
     peerDependencies:
       zod: ^3.0.0
@@ -1239,56 +1236,56 @@ packages:
   '@neondatabase/serverless@0.9.5':
     resolution: {integrity: sha512-siFas6gItqv6wD/pZnvdu34wEqgG3nSE6zWZdq5j2DEsa+VvX8i/5HXJOo06qrw5axPXn+lGCxeR+NLaSPIXug==}
 
-  '@next/env@15.2.0-canary.62':
-    resolution: {integrity: sha512-7J5N3OohRjlcfHmmkQLqhX0nkNkMvowkAkfpX0OhOFH7DucKKY1QCVmNfLZzF2cH4yvwL3ikDqzblfDIwliUHA==}
+  '@next/env@15.2.2-canary.1':
+    resolution: {integrity: sha512-gJIXdPsuRYwu6ek2LpWrdZQ2lZhOlqdhzRtb/ExDemu8ghTzGr+7xZbgN5CAi8pwo/IhkAB4t4SFZJH+4UpNVw==}
 
   '@next/eslint-plugin-next@15.1.3':
     resolution: {integrity: sha512-oeP1vnc5Cq9UoOb8SYHAEPbCXMzOgG70l+Zfd+Ie00R25FOm+CCVNrcIubJvB1tvBgakXE37MmqSycksXVPRqg==}
 
-  '@next/swc-darwin-arm64@15.2.0-canary.62':
-    resolution: {integrity: sha512-PzfpwpilzogDjeVFW+ZOYNjAnSztXiCb7qMgszDQfN5dHLMLq1tgsSxPbmyYaUPazm5KQL1l/JyDsF8Jf0oIvg==}
+  '@next/swc-darwin-arm64@15.2.2-canary.1':
+    resolution: {integrity: sha512-1YqZzotgKo9zXxWa9VeqH9iL3NFkZiKvC7cNeKiytP/erBWSa/KuFJXfy5TPre9kwV24WZU7EmkPe4yYXhKkyA==}
     engines: {node: '>= 10'}
     cpu: [arm64]
     os: [darwin]
 
-  '@next/swc-darwin-x64@15.2.0-canary.62':
-    resolution: {integrity: sha512-nfrQa0S2++4Qu7Js4KwiL5Y/JZTAtEfSpy5thQLWoaWsXFh3QuZUv1M5Hs2XabZ/xpmrqfPBrvYqva9Cbo9NAQ==}
+  '@next/swc-darwin-x64@15.2.2-canary.1':
+    resolution: {integrity: sha512-QmmTyHFiZyi+byFSQjIipABPrfbUOfwuy1lfjQ29+bK7Sjh5QO4MW8T2piLjdNZo39MDYU7PlFBd13zqzJo/ug==}
     engines: {node: '>= 10'}
     cpu: [x64]
     os: [darwin]
 
-  '@next/swc-linux-arm64-gnu@15.2.0-canary.62':
-    resolution: {integrity: sha512-l+9kb82wgragndmFDtiK/0eKGLZmJMCcu89wWASCGLx6T19r7QwjxCMesGlaV65WoaPbW8RTv5nZ88gjurcitg==}
+  '@next/swc-linux-arm64-gnu@15.2.2-canary.1':
+    resolution: {integrity: sha512-XH2dvCzSmf/MgInhknYm+EdxHM0eT5WZV01qet2QSkM7YeUOKEclnqbRouyxU0sZaCm7ENnICxCiJoyatdC9yQ==}
     engines: {node: '>= 10'}
     cpu: [arm64]
     os: [linux]
 
-  '@next/swc-linux-arm64-musl@15.2.0-canary.62':
-    resolution: {integrity: sha512-9cH0qxJ/WT8h8SGVTIn8MLIfA2/R27lLYfQJZQMTY06f8Xzg9ulzauBwE+/RuMGBrXfB+rsxMyXE8oCOeD5IYA==}
+  '@next/swc-linux-arm64-musl@15.2.2-canary.1':
+    resolution: {integrity: sha512-txuUjgrv3OkqB26Ib3AfdQ+VibFfzM8P2lMBihonc7+eyy9WILCg8f/n0RZo7S0KcLMhH+XZzwTcwf/iiePRcQ==}
     engines: {node: '>= 10'}
     cpu: [arm64]
     os: [linux]
 
-  '@next/swc-linux-x64-gnu@15.2.0-canary.62':
-    resolution: {integrity: sha512-6ma3jhkw6kgeMrGerLjxVsHcuG3GBRi/+AVGQIEFcjNajggVrHhojhnw79/CcpJZKn4cuzxfedEyCcqUv2TEdQ==}
+  '@next/swc-linux-x64-gnu@15.2.2-canary.1':
+    resolution: {integrity: sha512-V3ynIx9cyaQyZOkTMB705cbVe6ZCY2vJNJuKHbj+PD8CP7zyqLjXPXvIEYRgSz91njvVRRDtPXzaBcUgjaC6GQ==}
     engines: {node: '>= 10'}
     cpu: [x64]
     os: [linux]
 
-  '@next/swc-linux-x64-musl@15.2.0-canary.62':
-    resolution: {integrity: sha512-Cf+mmxQussnvZgLHA8kx6+12/mgcn51GNmZMuszzT67A5UqcFz5QVjvRD//2Tg81zmAuKaldWUnqEnEzpbWQMg==}
+  '@next/swc-linux-x64-musl@15.2.2-canary.1':
+    resolution: {integrity: sha512-iulaURm0+0fTv4OfE80t4BCC/w+x4M2ykeOEEF0CE9m0JZrHhVLLrzc4AmEka61TIh783MJbcLfzZlQ1IOUhIA==}
     engines: {node: '>= 10'}
     cpu: [x64]
     os: [linux]
 
-  '@next/swc-win32-arm64-msvc@15.2.0-canary.62':
-    resolution: {integrity: sha512-slMlw+r9dOVqSiu2X6Ps9KBZIIsOMObc/3fQSv1y3Jqa5AjXpBCPmPeoMKQaz9p19AsY3/0mlG1gnZDt3SkGjg==}
+  '@next/swc-win32-arm64-msvc@15.2.2-canary.1':
+    resolution: {integrity: sha512-djFvbwf87HarIFzyMXkMbE0sZVBxKPSgyT0GxjusFhKCctL1bGw3/C9zlgAfbWKOeV9G+jkgvD9NHOdjZm8OKA==}
     engines: {node: '>= 10'}
     cpu: [arm64]
     os: [win32]
 
-  '@next/swc-win32-x64-msvc@15.2.0-canary.62':
-    resolution: {integrity: sha512-Keet0Ut52JUZ8ve31GVq2kmrMTWzg1GOqJ1Y7T1ejvO2gCftMhqdN9thtnplyocxtnAUW7H79N/S6P552xYhig==}
+  '@next/swc-win32-x64-msvc@15.2.2-canary.1':
+    resolution: {integrity: sha512-nskCSe2WQi407nPOfVeNDlXfLFYG6T/u0hJhBVOFPOASQHb47iBbSVe/QKw/GCnjcexISKEZAkG/0koCcCEo4g==}
     engines: {node: '>= 10'}
     cpu: [x64]
     os: [win32]
@@ -1319,6 +1316,11 @@ packages:
   '@pkgjs/parseargs@0.11.0':
     resolution: {integrity: sha512-+1VkjdD0QBLPodGrJUeqarH8VAIvQODIbwh9XpP5Syisf7YoQgsJKPNFoqqLQlu+VQ/tVSshMR6loPMn8U+dPg==}
     engines: {node: '>=14'}
+
+  '@playwright/test@1.50.1':
+    resolution: {integrity: sha512-Jii3aBg+CEDpgnuDxEp/h7BimHcUTDlpEtce89xEumlJ5ef2hqepZ+PWp1DDpYC/VO9fmWVI1IlEaoI5fK9FXQ==}
+    engines: {node: '>=18'}
+    hasBin: true
 
   '@radix-ui/number@1.1.0':
     resolution: {integrity: sha512-V3gRzhVNU1ldS5XhAPTom1fOIo4ccrjjJgmE+LI2h/WaFpHmx0MQApT+KZHnx8abG6Avtfcz4WoEciMnpFT3HQ==}
@@ -2056,8 +2058,8 @@ packages:
     resolution: {integrity: sha512-jRR5wdylq8CkOe6hei19GGZnxM6rBGwFl3Bg0YItGDimvjGtAvdZk4Pu6Cl4u4Igsws4a1fd1Vq3ezrhn4KmFw==}
     engines: {node: '>= 14'}
 
-  ai@4.1.44:
-    resolution: {integrity: sha512-2THAHlSdZkRemTu7XinH5wckO3QprrniKg31fczgg4RKvsow0OztsLalwcIGoo69S0WN4BErNKkBisT+wXREZg==}
+  ai@4.1.50:
+    resolution: {integrity: sha512-YBNeemrJKDrxoBQd3V9aaxhKm5q5YyRcF7PZE7W0NmLuvsdva/1aQNYTAsxs47gQFdvqfYmlFy4B0E+356OlPA==}
     engines: {node: '>=18'}
     peerDependencies:
       react: ^18 || ^19 || ^19.0.0-rc
@@ -2836,6 +2838,11 @@ packages:
   fs.realpath@1.0.0:
     resolution: {integrity: sha512-OO0pH2lK6a0hZnAdau5ItzHPI6pUlvI7jMVnxUQRtw4owF2wk8lOSabtGDCTP4Ggrg2MbGnWO9X8K1t4+fGMDw==}
 
+  fsevents@2.3.2:
+    resolution: {integrity: sha512-xiqMQR4xAeHTuB9uWm+fFRcIOgKBMiOBP+eXiyT7jsgVCq1bkVygt00oASowB7EdtpOHaaPgKt812P9ab+DDKA==}
+    engines: {node: ^8.16.0 || ^10.6.0 || >=11.0.0}
+    os: [darwin]
+
   fsevents@2.3.3:
     resolution: {integrity: sha512-5xoDfX+fL7faATnagmWPpbFtwh/R77WmMMqqHGS65C3vvB0YHrgF+B1YmZ3441tMj5n63k0212XNoJwzlhffQw==}
     engines: {node: ^8.16.0 || ^10.6.0 || >=11.0.0}
@@ -3551,8 +3558,8 @@ packages:
       react: ^16.8 || ^17 || ^18 || ^19 || ^19.0.0-rc
       react-dom: ^16.8 || ^17 || ^18 || ^19 || ^19.0.0-rc
 
-  next@15.2.0-canary.62:
-    resolution: {integrity: sha512-AxGOLu4cDOG3SzF7J2lsJe44GHHJBbOC2ayytYN5fUzX8BEhaol21DBUoBOWdGmnXVlbPP7A0hejih2AzV5jRA==}
+  next@15.2.2-canary.1:
+    resolution: {integrity: sha512-XIZKbhXSrGkBdrGpdPjM7DhpKYkLJSl+IQHVgoOom0rWhSOKk9dH3aJ19XGyXSX1XFcMjirY4RzUgk1rEx0ukA==}
     engines: {node: ^18.18.0 || ^19.8.0 || >= 20.0.0}
     hasBin: true
     peerDependencies:
@@ -3717,6 +3724,16 @@ packages:
   pirates@4.0.6:
     resolution: {integrity: sha512-saLsH7WeYYPiD25LDuLRRY/i+6HaPYr6G1OUlN39otzkSTxKnubR9RTxS3/Kk50s1g2JTgFwWQDQyplC5/SHZg==}
     engines: {node: '>= 6'}
+
+  playwright-core@1.50.1:
+    resolution: {integrity: sha512-ra9fsNWayuYumt+NiM069M6OkcRb1FZSK8bgi66AtpFoWkg2+y0bJSNmkFrWhMbEBbVKC/EruAHH3g0zmtwGmQ==}
+    engines: {node: '>=18'}
+    hasBin: true
+
+  playwright@1.50.1:
+    resolution: {integrity: sha512-G8rwsOQJ63XG6BbKj2w5rHeavFjy5zynBA9zsJMMtBoe/Uf757oG12NXz6e6OirF7RCrTVAKFXbLmn1RbL7Qaw==}
+    engines: {node: '>=18'}
+    hasBin: true
 
   possible-typed-array-names@1.0.0:
     resolution: {integrity: sha512-d7Uw+eZoloe0EHDIYoe+bQ5WXnGMOpmiZFTuMWCwpjzzkL2nTjcKiAk4hh8TjnGye2TwWOk3UXucZ+3rbmBa8Q==}
@@ -4495,11 +4512,11 @@ packages:
 
 snapshots:
 
-  '@ai-sdk/fireworks@0.1.8(zod@3.24.1)':
+  '@ai-sdk/fireworks@0.1.12(zod@3.24.1)':
     dependencies:
-      '@ai-sdk/openai-compatible': 0.1.8(zod@3.24.1)
-      '@ai-sdk/provider': 1.0.7
-      '@ai-sdk/provider-utils': 2.1.6(zod@3.24.1)
+      '@ai-sdk/openai-compatible': 0.1.12(zod@3.24.1)
+      '@ai-sdk/provider': 1.0.9
+      '@ai-sdk/provider-utils': 2.1.10(zod@3.24.1)
       zod: 3.24.1
 
   '@ai-sdk/google@1.1.14(zod@3.24.1)':
@@ -4508,15 +4525,15 @@ snapshots:
       '@ai-sdk/provider-utils': 2.1.8(zod@3.24.1)
       zod: 3.24.1
 
-  '@ai-sdk/openai-compatible@0.1.8(zod@3.24.1)':
+  '@ai-sdk/openai-compatible@0.1.12(zod@3.24.1)':
     dependencies:
-      '@ai-sdk/provider': 1.0.7
-      '@ai-sdk/provider-utils': 2.1.6(zod@3.24.1)
+      '@ai-sdk/provider': 1.0.9
+      '@ai-sdk/provider-utils': 2.1.10(zod@3.24.1)
       zod: 3.24.1
 
-  '@ai-sdk/provider-utils@2.1.6(zod@3.24.1)':
+  '@ai-sdk/provider-utils@2.1.10(zod@3.24.1)':
     dependencies:
-      '@ai-sdk/provider': 1.0.7
+      '@ai-sdk/provider': 1.0.9
       eventsource-parser: 3.0.0
       nanoid: 3.3.8
       secure-json-parse: 2.7.0
@@ -4532,37 +4549,28 @@ snapshots:
     optionalDependencies:
       zod: 3.24.1
 
-  '@ai-sdk/provider-utils@2.1.9(zod@3.24.1)':
-    dependencies:
-      '@ai-sdk/provider': 1.0.8
-      eventsource-parser: 3.0.0
-      nanoid: 3.3.8
-      secure-json-parse: 2.7.0
-    optionalDependencies:
-      zod: 3.24.1
-
   '@ai-sdk/provider@1.0.7':
     dependencies:
       json-schema: 0.4.0
 
-  '@ai-sdk/provider@1.0.8':
+  '@ai-sdk/provider@1.0.9':
     dependencies:
       json-schema: 0.4.0
 
-  '@ai-sdk/react@1.1.17(react@19.0.0)(zod@3.24.1)':
+  '@ai-sdk/react@1.1.20(react@19.0.0)(zod@3.24.1)':
     dependencies:
-      '@ai-sdk/provider-utils': 2.1.9(zod@3.24.1)
-      '@ai-sdk/ui-utils': 1.1.15(zod@3.24.1)
+      '@ai-sdk/provider-utils': 2.1.10(zod@3.24.1)
+      '@ai-sdk/ui-utils': 1.1.16(zod@3.24.1)
       swr: 2.3.0(react@19.0.0)
       throttleit: 2.1.0
     optionalDependencies:
       react: 19.0.0
       zod: 3.24.1
 
-  '@ai-sdk/ui-utils@1.1.15(zod@3.24.1)':
+  '@ai-sdk/ui-utils@1.1.16(zod@3.24.1)':
     dependencies:
-      '@ai-sdk/provider': 1.0.8
-      '@ai-sdk/provider-utils': 2.1.9(zod@3.24.1)
+      '@ai-sdk/provider': 1.0.9
+      '@ai-sdk/provider-utils': 2.1.10(zod@3.24.1)
       zod-to-json-schema: 3.24.1(zod@3.24.1)
     optionalDependencies:
       zod: 3.24.1
@@ -5620,34 +5628,34 @@ snapshots:
     dependencies:
       '@types/pg': 8.11.6
 
-  '@next/env@15.2.0-canary.62': {}
+  '@next/env@15.2.2-canary.1': {}
 
   '@next/eslint-plugin-next@15.1.3':
     dependencies:
       fast-glob: 3.3.1
 
-  '@next/swc-darwin-arm64@15.2.0-canary.62':
+  '@next/swc-darwin-arm64@15.2.2-canary.1':
     optional: true
 
-  '@next/swc-darwin-x64@15.2.0-canary.62':
+  '@next/swc-darwin-x64@15.2.2-canary.1':
     optional: true
 
-  '@next/swc-linux-arm64-gnu@15.2.0-canary.62':
+  '@next/swc-linux-arm64-gnu@15.2.2-canary.1':
     optional: true
 
-  '@next/swc-linux-arm64-musl@15.2.0-canary.62':
+  '@next/swc-linux-arm64-musl@15.2.2-canary.1':
     optional: true
 
-  '@next/swc-linux-x64-gnu@15.2.0-canary.62':
+  '@next/swc-linux-x64-gnu@15.2.2-canary.1':
     optional: true
 
-  '@next/swc-linux-x64-musl@15.2.0-canary.62':
+  '@next/swc-linux-x64-musl@15.2.2-canary.1':
     optional: true
 
-  '@next/swc-win32-arm64-msvc@15.2.0-canary.62':
+  '@next/swc-win32-arm64-msvc@15.2.2-canary.1':
     optional: true
 
-  '@next/swc-win32-x64-msvc@15.2.0-canary.62':
+  '@next/swc-win32-x64-msvc@15.2.2-canary.1':
     optional: true
 
   '@nodelib/fs.scandir@2.1.5':
@@ -5670,6 +5678,10 @@ snapshots:
 
   '@pkgjs/parseargs@0.11.0':
     optional: true
+
+  '@playwright/test@1.50.1':
+    dependencies:
+      playwright: 1.50.1
 
   '@radix-ui/number@1.1.0': {}
 
@@ -6546,12 +6558,12 @@ snapshots:
 
   agent-base@7.1.3: {}
 
-  ai@4.1.44(react@19.0.0)(zod@3.24.1):
+  ai@4.1.50(react@19.0.0)(zod@3.24.1):
     dependencies:
-      '@ai-sdk/provider': 1.0.8
-      '@ai-sdk/provider-utils': 2.1.9(zod@3.24.1)
-      '@ai-sdk/react': 1.1.17(react@19.0.0)(zod@3.24.1)
-      '@ai-sdk/ui-utils': 1.1.15(zod@3.24.1)
+      '@ai-sdk/provider': 1.0.9
+      '@ai-sdk/provider-utils': 2.1.10(zod@3.24.1)
+      '@ai-sdk/react': 1.1.20(react@19.0.0)(zod@3.24.1)
+      '@ai-sdk/ui-utils': 1.1.16(zod@3.24.1)
       '@opentelemetry/api': 1.9.0
       jsondiffpatch: 0.6.0
     optionalDependencies:
@@ -7544,6 +7556,9 @@ snapshots:
 
   fs.realpath@1.0.0: {}
 
+  fsevents@2.3.2:
+    optional: true
+
   fsevents@2.3.3:
     optional: true
 
@@ -7567,9 +7582,9 @@ snapshots:
 
   functions-have-names@1.2.3: {}
 
-  geist@1.3.1(next@15.2.0-canary.62(@opentelemetry/api@1.9.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)):
+  geist@1.3.1(next@15.2.2-canary.1(@opentelemetry/api@1.9.0)(@playwright/test@1.50.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)):
     dependencies:
-      next: 15.2.0-canary.62(@opentelemetry/api@1.9.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+      next: 15.2.2-canary.1(@opentelemetry/api@1.9.0)(@playwright/test@1.50.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
 
   get-intrinsic@1.2.4:
     dependencies:
@@ -8503,10 +8518,10 @@ snapshots:
 
   natural-compare@1.4.0: {}
 
-  next-auth@5.0.0-beta.25(next@15.2.0-canary.62(@opentelemetry/api@1.9.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react@19.0.0):
+  next-auth@5.0.0-beta.25(next@15.2.2-canary.1(@opentelemetry/api@1.9.0)(@playwright/test@1.50.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react@19.0.0):
     dependencies:
       '@auth/core': 0.37.2
-      next: 15.2.0-canary.62(@opentelemetry/api@1.9.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+      next: 15.2.2-canary.1(@opentelemetry/api@1.9.0)(@playwright/test@1.50.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       react: 19.0.0
 
   next-themes@0.4.4(react-dom@19.0.0(react@19.0.0))(react@19.0.0):
@@ -8514,9 +8529,9 @@ snapshots:
       react: 19.0.0
       react-dom: 19.0.0(react@19.0.0)
 
-  next@15.2.0-canary.62(@opentelemetry/api@1.9.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0):
+  next@15.2.2-canary.1(@opentelemetry/api@1.9.0)(@playwright/test@1.50.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0):
     dependencies:
-      '@next/env': 15.2.0-canary.62
+      '@next/env': 15.2.2-canary.1
       '@swc/counter': 0.1.3
       '@swc/helpers': 0.5.15
       busboy: 1.6.0
@@ -8526,15 +8541,16 @@ snapshots:
       react-dom: 19.0.0(react@19.0.0)
       styled-jsx: 5.1.6(react@19.0.0)
     optionalDependencies:
-      '@next/swc-darwin-arm64': 15.2.0-canary.62
-      '@next/swc-darwin-x64': 15.2.0-canary.62
-      '@next/swc-linux-arm64-gnu': 15.2.0-canary.62
-      '@next/swc-linux-arm64-musl': 15.2.0-canary.62
-      '@next/swc-linux-x64-gnu': 15.2.0-canary.62
-      '@next/swc-linux-x64-musl': 15.2.0-canary.62
-      '@next/swc-win32-arm64-msvc': 15.2.0-canary.62
-      '@next/swc-win32-x64-msvc': 15.2.0-canary.62
+      '@next/swc-darwin-arm64': 15.2.2-canary.1
+      '@next/swc-darwin-x64': 15.2.2-canary.1
+      '@next/swc-linux-arm64-gnu': 15.2.2-canary.1
+      '@next/swc-linux-arm64-musl': 15.2.2-canary.1
+      '@next/swc-linux-x64-gnu': 15.2.2-canary.1
+      '@next/swc-linux-x64-musl': 15.2.2-canary.1
+      '@next/swc-win32-arm64-msvc': 15.2.2-canary.1
+      '@next/swc-win32-x64-msvc': 15.2.2-canary.1
       '@opentelemetry/api': 1.9.0
+      '@playwright/test': 1.50.1
       sharp: 0.33.5
     transitivePeerDependencies:
       - '@babel/core'
@@ -8689,6 +8705,14 @@ snapshots:
   pify@2.3.0: {}
 
   pirates@4.0.6: {}
+
+  playwright-core@1.50.1: {}
+
+  playwright@1.50.1:
+    dependencies:
+      playwright-core: 1.50.1
+    optionalDependencies:
+      fsevents: 2.3.2
 
   possible-typed-array-names@1.0.0: {}
 

@@ -27,7 +27,6 @@ const PurePreviewMessage = ({
   setMessages,
   reload,
   isReadonly,
-  index,
 }: {
   chatId: string;
   message: Message;
@@ -40,14 +39,13 @@ const PurePreviewMessage = ({
     chatRequestOptions?: ChatRequestOptions,
   ) => Promise<string | null | undefined>;
   isReadonly: boolean;
-  index: number;
 }) => {
   const [mode, setMode] = useState<'view' | 'edit'>('view');
 
   return (
     <AnimatePresence>
       <motion.div
-        data-testid={`message-${message.role}-${index}`}
+        data-testid={`message-${message.role}`}
         className="w-full mx-auto max-w-3xl px-4 group/message"
         initial={{ y: 5, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
@@ -73,7 +71,7 @@ const PurePreviewMessage = ({
           <div className="flex flex-col gap-4 w-full">
             {message.experimental_attachments && (
               <div
-                data-testid={`message-attachments-${index}`}
+                data-testid={`message-attachments`}
                 className="flex flex-row justify-end gap-2"
               >
                 {message.experimental_attachments.map((attachment) => (
@@ -93,12 +91,15 @@ const PurePreviewMessage = ({
             )}
 
             {(message.content || message.reasoning) && mode === 'view' && (
-              <div className="flex flex-row gap-2 items-start">
+              <div
+                data-testid="message-content"
+                className="flex flex-row gap-2 items-start"
+              >
                 {message.role === 'user' && !isReadonly && (
                   <Tooltip>
                     <TooltipTrigger asChild>
                       <Button
-                        data-testid={`edit-${message.role}-${index}`}
+                        data-testid={`message-edit`}
                         variant="ghost"
                         className="px-2 h-fit rounded-full text-muted-foreground opacity-0 group-hover/message:opacity-100"
                         onClick={() => {
@@ -243,6 +244,7 @@ export const ThinkingMessage = () => {
 
   return (
     <motion.div
+      data-testid="message-assistant-loading"
       className="w-full mx-auto max-w-3xl px-4 group/message "
       initial={{ y: 5, opacity: 0 }}
       animate={{ y: 0, opacity: 1, transition: { delay: 1 } }}

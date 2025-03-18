@@ -1,17 +1,16 @@
 import type {
-  Attachment,
   CoreAssistantMessage,
-  CoreMessage,
   CoreToolMessage,
   Message,
   TextStreamPart,
   ToolInvocation,
   ToolSet,
+  UIMessage,
 } from 'ai';
 import { type ClassValue, clsx } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 
-import type { Message as DBMessage, Document } from '@/lib/db/schema';
+import type { DBMessage, Document } from '@/lib/db/schema';
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -87,64 +86,6 @@ function addToolMessageToChat({
   });
 }
 
-export function convertToUIMessages(
-  messages: Array<DBMessage>,
-): Array<Message> {
-  return messages.reduce((chatMessages: Array<Message>, message) => {
-    if (message.role === 'tool') {
-      return addToolMessageToChat({
-        toolMessage: message as CoreToolMessage,
-        messages: chatMessages,
-      });
-    }
-
-    let textContent = '';
-    let reasoning: string | undefined = undefined;
-    const toolInvocations: Array<ToolInvocation> = [];
-    const attachments: Attachment[] = [];
-
-    if (typeof message.content === 'string') {
-      textContent = message.content;
-    } else if (Array.isArray(message.content)) {
-      for (const content of message.content) {
-        if (content.type === 'text') {
-          textContent += content.text;
-        } else if (content.type === 'tool-call') {
-          toolInvocations.push({
-            state: 'call',
-            toolCallId: content.toolCallId,
-            toolName: content.toolName,
-            args: content.args,
-          });
-        } else if (content.type === 'reasoning') {
-          reasoning = content.reasoning;
-        } else if (content.type === 'image') {
-          attachments.push({
-            name: content.name,
-            contentType: content.contentType || 'image/*',
-            url: content.image,
-          });
-        }
-      }
-    }
-
-    chatMessages.push({
-      id: message.id,
-      role: message.role as Message['role'],
-      content: textContent,
-      reasoning,
-      toolInvocations,
-      ...(attachments.length
-        ? {
-            experimental_attachments: attachments,
-          }
-        : {}),
-    });
-
-    return chatMessages;
-  }, []);
-}
-
 type ResponseMessageWithoutId = CoreToolMessage | CoreAssistantMessage;
 type ResponseMessage = ResponseMessageWithoutId & { id: string };
 
@@ -196,40 +137,7 @@ export function sanitizeResponseMessages({
   );
 }
 
-export function sanitizeUIMessages(messages: Array<Message>): Array<Message> {
-  const messagesBySanitizedToolInvocations = messages.map((message) => {
-    if (message.role !== 'assistant') return message;
-
-    if (!message.toolInvocations) return message;
-
-    const toolResultIds: Array<string> = [];
-
-    for (const toolInvocation of message.toolInvocations) {
-      if (toolInvocation.state === 'result') {
-        toolResultIds.push(toolInvocation.toolCallId);
-      }
-    }
-
-    const sanitizedToolInvocations = message.toolInvocations.filter(
-      (toolInvocation) =>
-        toolInvocation.state === 'result' ||
-        toolResultIds.includes(toolInvocation.toolCallId),
-    );
-
-    return {
-      ...message,
-      toolInvocations: sanitizedToolInvocations,
-    };
-  });
-
-  return messagesBySanitizedToolInvocations.filter(
-    (message) =>
-      message.content.length > 0 ||
-      (message.toolInvocations && message.toolInvocations.length > 0),
-  );
-}
-
-export function getMostRecentUserMessage(messages: Array<CoreMessage>) {
+export function getMostRecentUserMessage(messages: Array<UIMessage>) {
   const userMessages = messages.filter((message) => message.role === 'user');
   return userMessages.at(-1);
 }
@@ -242,4 +150,16 @@ export function getDocumentTimestampByIndex(
   if (index > documents.length) return new Date();
 
   return documents[index].createdAt;
+}
+
+export function getTrailingMessageId({
+  messages,
+}: {
+  messages: Array<ResponseMessage>;
+}): string | null {
+  const trailingMessage = messages.at(-1);
+
+  if (!trailingMessage) return null;
+
+  return trailingMessage.id;
 }

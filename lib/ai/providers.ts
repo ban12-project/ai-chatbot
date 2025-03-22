@@ -16,8 +16,7 @@ import {
 export const myProvider = isTestEnvironment
   ? customProvider({
       languageModels: {
-        'chat-model-small': chatModel,
-        'chat-model-large': chatModel,
+        'chat-model': chatModel,
         'chat-model-reasoning': reasoningModel,
         'title-model': titleModel,
         'artifact-model': artifactModel,

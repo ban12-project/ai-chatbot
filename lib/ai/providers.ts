@@ -31,7 +31,10 @@ export const myProvider = isTestEnvironment
         ),
         "gemini-2.0-flash": google("gemini-2.0-flash"),
         "gemini-exp-1206": google("gemini-exp-1206"),
-        "deepseek-chat": fireworks("accounts/fireworks/models/deepseek-v3"),
+        "deepseek-v3": fireworks("accounts/fireworks/models/deepseek-v3"),
+        "deepseek-v3-0324": fireworks(
+          "accounts/fireworks/models/deepseek-v3-0324",
+        ),
         "chat-model-reasoning": wrapLanguageModel({
           model: fireworks("accounts/fireworks/models/deepseek-r1"),
           middleware: extractReasoningMiddleware({ tagName: "think" }),

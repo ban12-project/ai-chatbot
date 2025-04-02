@@ -36,9 +36,14 @@ export const chatModels: Array<ChatModel> = [
     description: "Quality improvements, celebrate 1 year of Gemini",
   },
   {
-    id: "deepseek-chat",
-    name: "DeepSeek Chat",
-    description: "DeepSeek-V3",
+    id: "deepseek-v3",
+    name: "DeepSeek v3",
+    description: "DeepSeek v3",
+  },
+  {
+    id: "deepseek-v3-0324",
+    name: "DeepSeek v3 0324",
+    description: "DeepSeek v3 0324",
   },
   {
     id: "chat-model-reasoning",

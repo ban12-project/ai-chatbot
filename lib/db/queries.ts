@@ -1,7 +1,17 @@
 import 'server-only';
 
-import { genSaltSync, hashSync } from 'bcrypt-ts';
-import { and, asc, desc, eq, gt, gte, inArray, lt, SQL } from 'drizzle-orm';
+import {
+  and,
+  asc,
+  count,
+  desc,
+  eq,
+  gt,
+  gte,
+  inArray,
+  lt,
+  type SQL,
+} from 'drizzle-orm';
 import { drizzle } from 'drizzle-orm/postgres-js';
 import postgres from 'postgres';
 
@@ -15,11 +25,13 @@ import {
   message,
   vote,
   type DBMessage,
-  Chat,
   subscription,
   type Subscription,
+  type Chat,
 } from './schema';
-import { ArtifactKind } from '@/components/artifact';
+import type { ArtifactKind } from '@/components/artifact';
+import { generateUUID } from '../utils';
+import { generateHashedPassword } from './utils';
 
 // Optionally, if not using email/pass login, you can
 // use the Drizzle adapter for Auth.js / NextAuth
@@ -39,13 +51,27 @@ export async function getUser(email: string): Promise<Array<User>> {
 }
 
 export async function createUser(email: string, password: string) {
-  const salt = genSaltSync(10);
-  const hash = hashSync(password, salt);
+  const hashedPassword = generateHashedPassword(password);
 
   try {
-    return await db.insert(user).values({ email, password: hash });
+    return await db.insert(user).values({ email, password: hashedPassword });
   } catch (error) {
     console.error('Failed to create user in database');
+    throw error;
+  }
+}
+
+export async function createGuestUser() {
+  const email = `guest-${Date.now()}`;
+  const password = generateHashedPassword(generateUUID());
+
+  try {
+    return await db.insert(user).values({ email, password }).returning({
+      id: user.id,
+      email: user.email,
+    });
+  } catch (error) {
+    console.error('Failed to create guest user in database');
     throw error;
   }
 }
@@ -77,7 +103,11 @@ export async function deleteChatById({ id }: { id: string }) {
     await db.delete(vote).where(eq(vote.chatId, id));
     await db.delete(message).where(eq(message.chatId, id));
 
-    return await db.delete(chat).where(eq(chat.id, id));
+    const [chatsDeleted] = await db
+      .delete(chat)
+      .where(eq(chat.id, id))
+      .returning();
+    return chatsDeleted;
   } catch (error) {
     console.error('Failed to delete chat by id from database');
     throw error;
@@ -243,14 +273,17 @@ export async function saveDocument({
   userId: string;
 }) {
   try {
-    return await db.insert(document).values({
-      id,
-      title,
-      kind,
-      content,
-      userId,
-      createdAt: new Date(),
-    });
+    return await db
+      .insert(document)
+      .values({
+        id,
+        title,
+        kind,
+        content,
+        userId,
+        createdAt: new Date(),
+      })
+      .returning();
   } catch (error) {
     console.error('Failed to save document in database');
     throw error;
@@ -300,16 +333,17 @@ export async function deleteDocumentsByIdAfterTimestamp({
       .where(
         and(
           eq(suggestion.documentId, id),
-          gt(suggestion.documentCreatedAt, timestamp)
+          gt(suggestion.documentCreatedAt, timestamp),
         )
       );
 
     return await db
       .delete(document)
-      .where(and(eq(document.id, id), gt(document.createdAt, timestamp)));
+      .where(and(eq(document.id, id), gt(document.createdAt, timestamp)))
+      .returning();
   } catch (error) {
     console.error(
-      'Failed to delete documents by id after timestamp from database'
+      'Failed to delete documents by id after timestamp from database',
     );
     throw error;
   }
@@ -340,7 +374,7 @@ export async function getSuggestionsByDocumentId({
       .where(and(eq(suggestion.documentId, documentId)));
   } catch (error) {
     console.error(
-      'Failed to get suggestions by document version from database'
+      'Failed to get suggestions by document version from database',
     );
     throw error;
   }
@@ -367,7 +401,7 @@ export async function deleteMessagesByChatIdAfterTimestamp({
       .select({ id: message.id })
       .from(message)
       .where(
-        and(eq(message.chatId, chatId), gte(message.createdAt, timestamp))
+        and(eq(message.chatId, chatId), gte(message.createdAt, timestamp)),
       );
 
     const messageIds = messagesToDelete.map((message) => message.id);
@@ -376,18 +410,18 @@ export async function deleteMessagesByChatIdAfterTimestamp({
       await db
         .delete(vote)
         .where(
-          and(eq(vote.chatId, chatId), inArray(vote.messageId, messageIds))
+          and(eq(vote.chatId, chatId), inArray(vote.messageId, messageIds)),
         );
 
       return await db
         .delete(message)
         .where(
-          and(eq(message.chatId, chatId), inArray(message.id, messageIds))
+          and(eq(message.chatId, chatId), inArray(message.id, messageIds)),
         );
     }
   } catch (error) {
     console.error(
-      'Failed to delete messages by id after timestamp from database'
+      'Failed to delete messages by id after timestamp from database',
     );
     throw error;
   }
@@ -444,6 +478,37 @@ export async function deleteSubscription({
     return await db.delete(subscription).where(eq(subscription.userId, userId));
   } catch (error) {
     console.error('Failed to delete subscription by userId from database');
+    throw error;
+  }
+}
+
+export async function getMessageCountByUserId({
+  id,
+  differenceInHours,
+}: { id: string; differenceInHours: number }) {
+  try {
+    const twentyFourHoursAgo = new Date(
+      Date.now() - differenceInHours * 60 * 60 * 1000,
+    );
+
+    const [stats] = await db
+      .select({ count: count(message.id) })
+      .from(message)
+      .innerJoin(chat, eq(message.chatId, chat.id))
+      .where(
+        and(
+          eq(chat.userId, id),
+          gte(message.createdAt, twentyFourHoursAgo),
+          eq(message.role, 'user'),
+        ),
+      )
+      .execute();
+
+    return stats?.count ?? 0;
+  } catch (error) {
+    console.error(
+      'Failed to get message count by user id for the last 24 hours from database',
+    );
     throw error;
   }
 }

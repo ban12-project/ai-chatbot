@@ -1,6 +1,6 @@
 export const DEFAULT_CHAT_MODEL: string = "gemini-2.0-flash";
 
-interface ChatModel {
+export interface ChatModel {
   id: string;
   name: string;
   description: string;
